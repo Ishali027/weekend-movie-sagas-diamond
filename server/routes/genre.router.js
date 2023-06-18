@@ -11,7 +11,8 @@ router.get('/:id', (req, res) => {
   JOIN genres ON genres.id = movies_genres.genre_id
   WHERE "movies"."id" = $1;
   `;
-  pool.query(queryText, [idToFind]).then(result => {
+  pool.query(queryText, [idToFind])
+  .then(result => {
     res.send(result.rows);
   }).catch(err => {
     res.sendStatus(500)

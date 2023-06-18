@@ -10,13 +10,18 @@ function MovieList() {
     const history = useHistory();
 
 
-    const handleClick = (movie) => {
+    const handleClick = ( id) => {
+        
         dispatch({
-            type: 'GET_INFO',
-            payload: movie
+            type: 'GET_MOVIE_INFO',
+            payload: id
+        }),
+        dispatch({
+            type: 'FETCH_GENRES',
+            payload: id
         })
         
-        history.push(`/details/${movie}`)
+        history.push(`/details`)
     }
 
     useEffect(() => {
@@ -31,9 +36,9 @@ function MovieList() {
                     
                     return (
                         
-                        <div key={movie.id} onClick={() => handleClick(movie)}>
+                        <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}  />
+                            <img onClick={() => handleClick(movie)} src={movie.poster} alt={movie.title}  />
                         </div>
                         
                     );
