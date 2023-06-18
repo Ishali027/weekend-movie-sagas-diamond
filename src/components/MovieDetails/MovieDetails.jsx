@@ -35,8 +35,7 @@ return (
     <div>
         {Moviegenres.map(genre => (
             <div key={genre.genres_id}>
-                <p>{genre.name}</p>
-                <p>{genre.description}</p>
+               
                 <h1>{genre.genre}</h1>
             </div>
         ))}

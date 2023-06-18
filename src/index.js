@@ -13,8 +13,13 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
+    // getting movies from all movies
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+
+    //getting movie genre info
     yield takeEvery('FETCH_GENRES', fetchGenres);
+
+    //getting movie info from client side
     yield takeEvery('GET_MOVIE_INFO', fetchInfo)
 }
 
@@ -34,7 +39,7 @@ function* fetchAllMovies() {
 }
 
 function* fetchGenres (action) {
-    //get all genres from database
+    // made this generator function to get all genres from database
     try {
         const genres = yield axios.get(`/api/genre/${action.payload.id}`);
         console.log('get all:', genres);
@@ -48,6 +53,7 @@ function* fetchGenres (action) {
     }
 }
 
+// made this generator function to get movie id from clientside movie List
 function* fetchInfo (action) {
     try {
         yield put ({
@@ -82,6 +88,7 @@ const genres = (state = [], action) => {
     }
 }
 
+// made this reducer to store individual movie data
 const info = (state = [], action) => {
     switch(action.type) {
         case 'GET_INFO':
@@ -96,6 +103,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        // added my info reducer to the store
         info
     }),
     // Add sagaMiddleware to our store
